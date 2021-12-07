@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+   <!-- https://github.com/zabir-nabil/crowdsource-voice-research -->
+   <head>
+      <meta charset="UTF-8">
+      <title>Crowdsource voice data</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+      <!-- Tailwind css -->
+      <script src="https://cdn-tailwindcss.vercel.app//?plugins=forms"></script>
+      <style type="text/tailwindcss">
+         body {
+         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+         @apply bg-gray-100;
+         }
+         .form-input {
+         @apply transition focus:border-purple-600 focus:ring-purple-600 rounded focus:ring focus:ring-opacity-20 border-gray-400
+         }
+         .control-btn {
+         @apply inline-block py-2 px-4 bg-gray-200 font-medium text-gray-800 hover:bg-gray-100 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed hover:disabled:bg-gray-200;
+         }
+         .recordings-list {
+         @apply mt-2 divide-y divide-gray-300
+         }
+         .recordings-list li audio {
+         @apply mb-3 w-full max-w-full;
+         }
+         .recordings-list li {
+         @apply py-5 flex items-center flex-wrap;
+         }
+         .recordings-list li p {
+         @apply flex-grow w-full sm:w-auto;
+         }
+         .recordings-list li a {
+         @apply font-semibold text-purple-100 bg-purple-800 inline-block py-2 px-3 text-sm rounded-lg focus:ring ring-purple-600 ring-opacity-30 odd:ml-0 odd:text-purple-800 odd:bg-purple-100 hover:brightness-105 transition truncate my-1 mx-2 sm:my-0;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="navigation-bar">
+         <div id="navigation-container"  class="flex items-center shadow bg-white">
+            <img class="logo h-full" src="/static/icon.png">
+            <ul class="flex items-center space-x-4 sm:space-x-8 ml-6 sm:ml-10">
+               <li><a class="text-gray-700 py-3 inline-block font-medium hover:text-black transition" href="#">Data Submission</a></li>
+               <li><a class="text-gray-700 py-3 inline-block font-medium hover:text-black transition" href="#" onclick="toastr.info('A crowdsourcing project for voice data collection to facilitate audio research.');">About</a></li>
+            </ul>
+         </div>
+      </div>
+      <main class="main max-w-4xl px-2 sm:px-5 sm:px-10 mx-auto py-12 sm:mt-12">
+         <div class="bg-white p-3 sm:p-4 shadow">
+            <h3 class="text-gray-800 text-2xl sm:text-3xl font-semibold mb-6">Crowdsourcing Voice Research</h3>
+            <p class="text-gray-800 text-l sm:text-l mb-6">
+               The voice data is being collected for audio research. Each participant is required to submit his id (Full Name), birthdate (to estimate the age of the participant), and gender along with audio data.
+               Make sure your microphone is working properly and you are not in a very noisy environment (A little background noise is okay but your voice should be intelligible). Make sure of the following while submitting the data:
+            <ul>
+               <li>
+                  &#8226; Fill up your full name, birthdate, and gender.
+               </li>
+               <li>
+                  &#8226; Start recording, record for 40 sec. to 2 minutes with continuous speech. 
+               </li>
+               <li>
+                  &#8226; You can use multiple languages (e.g. Bangla, English, Hindi, Arabic). You can utter anything as long as they are valid sentences.
+               </li>
+               <li>
+                  &#8226; Before submitting each record, make sure your voice can be understood without any difficulty by playing the recording. Finally, submit the recording.
+               </li>
+               <li>
+                  &#8226; Record at least 4-5 audio recordings (each 40 sec. to 2 min). The more the better.
+               </li>
+            </ul>
+            </p>
+            <br>
+            <br>
+            <div id="controls" class="space-y-6">
+               <div>
+                  <label for="name" class="block w-full mb-1 text-gray-700">Full name:</label>
+                  <input
+                     type="text"
+                     id="name"
+                     name="name"
+                     class="form-input w-full"
+                     placeholder="Zabir Al Nazi"
+                     required
+                     >
+               </div>
+               <div class="flex items-center">
+                  <label for="birthday" class="text-gray-700">Birthday:</label>
+                  <input
+                     type="date"
+                     id="birthday"
+                     name="birthday"
+                     class="form-input ml-4 w-full sm:w-auto"
+                     value="1994-01-01"
+                     required
+                     >
+               </div>
+               <div class="space-y-2">
+                  <label for="male" class="flex items-center text-gray-700">
+                  <input
+                     type="radio"
+                     id="male"
+                     name="gender"
+                     value="Male"
+                     checked
+                     class="text-sm mr-2 text-purple-500 h-4 w-4"
+                     >
+                  <span>Male</span>
+                  </label>
+                  <label for="female" class="flex items-center text-gray-700">
+                  <input
+                     type="radio"
+                     id="female"
+                     name="gender"
+                     value="Female"
+                     class="text-sm mr-2 text-purple-500"
+                     >
+                  <span>Female</span>
+                  </label>
+               </div>
+               <hr class="border-gray-300">
+               <div>
+                  <h4 class="text-lg font-medium mb-2">Terms and Conditions</h4>
+                  <textarea class="form-input w-full" rows = 5 readonly>The following terms and conditions constitute a contract between you and the website. The crowdsourcing project aims to collect voice data for research purposes. By submitting data to this website you agree to the following:
+  &#8227; You are granting the rights to the project to use your data in any form.
+  &#8227; You are providing the correct information about demographics or voice data.
+  &#8227; You are not submitting data with multiple different identities.
+  &#8227; Your data may be used to calibrate commercial research-based products.
+
+We agree to the following while using your data:
+  &#8227; Your data will not be transferred or sold to any third party under any circumstances.
+  &#8227; Your name will be anonymized. It is merely used as an identity reference.</textarea>
+                  <br>
+                  <label for="agree" class="flex items-center text-gray-700">
+                  <input class="text-sm mr-2 text-purple-500" type="radio" id="agree" name="agree" value="Agree" checked>
+                  <span>Agree</span>
+                  </label>
+               </div>
+            </div>
+         </div>
+         <div class="bg-white my-12 p-3 sm:px-4 py-8 bg-white shadow">
+            <div class="flex sm:inline-flex rounded border border-gray-300">
+               <button class="control-btn flex-1 sm:flex-none rounded-l" id="recordButton">Record</button>
+               <button class="control-btn flex-1 sm:flex-none border-l border-r border-gray-300" id="pauseButton" disabled>Pause</button>
+               <button class="control-btn flex-1 sm:flex-none rounded-r" id="stopButton" disabled>Stop</button>
+            </div>
+            <div id="formats" class="my-3 text-gray-800">Mircrophone Format: start recording to see sample rate</div>
+            <p id="recordings_list"></p>
+            <ol id="recordingsList" class="recordings-list"></ol>
+         </div>
+      </main>
+      <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+      <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+      <script src="/static/js/app.js"></script>
+   </body>
+</html>
+
